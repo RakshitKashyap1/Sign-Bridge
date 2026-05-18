@@ -1,0 +1,26 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+.focus-visible {
+  @apply outline-none ring-2 ring-primary-500 ring-offset-2;
+}
+
+.high-contrast {
+  background-color: #ffffff;
+  color: #1a1a1a;
+}
+
+@media (prefers-contrast: high) {
+  .high-contrast {
+    border: 2px solid #000000;
+  }
+}

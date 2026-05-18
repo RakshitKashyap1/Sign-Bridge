@@ -1,0 +1,20 @@
+{
+  "hello": {"en": "hello", "hi": "नमस्ते"},
+  "namaste": {"en": "hello", "hi": "नमस्ते"},
+  "yes": {"en": "yes", "hi": "हाँ"},
+  "haan": {"en": "yes", "hi": "हाँ"},
+  "no": {"en": "no", "hi": "नहीं"},
+  "nahi": {"en": "no", "hi": "नहीं"},
+  "thanks": {"en": "thank you", "hi": "धन्यवाद"},
+  "dhanyavaad": {"en": "thank you", "hi": "धन्यवाद"},
+  "please": {"en": "please", "hi": "कृपया"},
+  "kripya": {"en": "please", "hi": "कृपया"},
+  "sorry": {"en": "sorry", "hi": "माफ कीजिए"},
+  "maaf_kijiye": {"en": "sorry", "hi": "माफ कीजिए"},
+  "love": {"en": "love", "hi": "प्यार"},
+  "pyaar": {"en": "love", "hi": "प्यार"},
+  "happy": {"en": "happy", "hi": "खुश"},
+  "khushi": {"en": "happy", "hi": "खुश"},
+  "sad": {"en": "sad", "hi": "उदास"},
+  "udaas": {"en": "sad", "hi": "उदास"}
+}

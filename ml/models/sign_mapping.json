@@ -1,0 +1,56 @@
+{
+  "hello": {
+    "en": "hello",
+    "hi": "नमस्ते",
+    "animations": ["wave"],
+    "icons": ["hand_wave", "greeting"]
+  },
+  "yes": {
+    "en": "yes",
+    "hi": "हाँ",
+    "animations": ["nod", "thumbs_up"],
+    "icons": ["thumb_up", "nodding"]
+  },
+  "no": {
+    "en": "no",
+    "hi": "नहीं",
+    "animations": ["shake_head", "thumbs_down"],
+    "icons": ["thumb_down", "negative"]
+  },
+  "thank_you": {
+    "en": "thank you",
+    "hi": "धन्यवाद",
+    "animations": ["thank_you_gesture", "hands_together"],
+    "icons": ["gratitude", "appreciation"]
+  },
+  "please": {
+    "en": "please",
+    "hi": "कृपया",
+    "animations": ["please_gesture", "cupped_hands"],
+    "icons": ["request", "polite"]
+  },
+  "sorry": {
+    "en": "sorry",
+    "hi": "माफ कीजिए",
+    "animations": ["sorry_gesture", "fist_over_chest"],
+    "icons": ["apology", "regret"]
+  },
+  "love": {
+    "en": "love",
+    "hi": "प्यार",
+    "animations": ["heart_hands", "cross_arms"],
+    "icons": ["heart", "affection"]
+  },
+  "happy": {
+    "en": "happy",
+    "hi": "खुश",
+    "animations": ["smile_hands", "clap"],
+    "icons": ["joy", "celebration"]
+  },
+  "sad": {
+    "en": "sad",
+    "hi": "उदास",
+    "animations": ["shoulder_droop", "hand_over_face"],
+    "icons": ["sad_face", "tear"]
+  }
+}
