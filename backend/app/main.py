@@ -1,6 +1,8 @@
 import uvicorn
+import time
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi.responses import JSONResponse
 from app.api.v1 import api_router
 from app.core.config import settings
 
@@ -23,10 +25,23 @@ app.add_middleware(
 
 app.include_router(api_router, prefix="/api/v1")
 
+start_time = time.time()
+
 
 @app.get("/", include_in_schema=False)
 async def root():
     return {"message": "SignBridge API", "version": "1.0.0"}
+
+
+@app.get("/api/v1/health", include_in_schema=False)
+async def health():
+    uptime = round(time.time() - start_time, 2)
+    return {
+        "status": "healthy",
+        "service": "signbridge-api",
+        "version": "1.0.0",
+        "uptime_seconds": uptime,
+    }
 
 
 if __name__ == "__main__":

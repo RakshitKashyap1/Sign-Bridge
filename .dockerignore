@@ -1,0 +1,12 @@
+# Ignore everything by default
+*
+# Keep these for Docker context
+!.dockerignore
+!.env.example
+!docker-compose.yml
+!docker-compose.prod.yml
+!Makefile
+!nginx.conf
+!backend/
+!frontend/
+!ml/
