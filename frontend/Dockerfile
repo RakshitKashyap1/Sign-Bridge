@@ -4,8 +4,8 @@ FROM base AS deps
 RUN apk add --no-cache libc6-compat git python3 make g++
 WORKDIR /app
 
-COPY ./frontend/package.json ./frontend/package-lock.json ./
-RUN npm ci
+COPY ./frontend/package.json ./
+RUN npm install
 
 FROM base AS builder
 WORKDIR /app
