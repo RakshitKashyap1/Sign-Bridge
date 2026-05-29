@@ -4,6 +4,7 @@ import { TranslationProvider } from '../hooks/useTranslation';
 import { Navigation } from '../components/Navigation';
 import { GestureToText } from '../components/GestureToText';
 import { TextToGesture } from '../components/TextToGesture';
+import { SpeechToGesture } from '../components/SpeechToGesture';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '../components/ui/Tabs';
 
 export default function Home() {
@@ -21,12 +22,15 @@ export default function Home() {
             <p className="text-center text-gray-600 mb-8">{t('subtitle')}</p>
             
             <Tabs defaultValue="gesture" className="w-full">
-              <TabsList className="grid w-full grid-cols-2 mb-8">
+              <TabsList className="grid w-full grid-cols-3 mb-8">
                 <TabsTrigger value="gesture" className="text-lg py-3">
                   {t('gestureToText')}
                 </TabsTrigger>
                 <TabsTrigger value="text" className="text-lg py-3">
                   {t('textToGesture')}
+                </TabsTrigger>
+                <TabsTrigger value="speech" className="text-lg py-3">
+                  {t('speechToGesture')}
                 </TabsTrigger>
               </TabsList>
               
@@ -36,6 +40,10 @@ export default function Home() {
               
               <TabsContent value="text">
                 <TextToGesture />
+              </TabsContent>
+
+              <TabsContent value="speech">
+                <SpeechToGesture />
               </TabsContent>
             </Tabs>
           </main>

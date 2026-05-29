@@ -14,6 +14,7 @@ interface TranslationContextType {
   error: string | null;
   translateGesture: (file: File) => Promise<void>;
   translateText: (text: string, language?: string) => Promise<any>;
+  translateSpeech: (blob: Blob, language?: string) => Promise<any>;
   clearResult: () => void;
 }
 
@@ -57,13 +58,29 @@ export function TranslationProvider({ children }: { children: ReactNode }) {
     }
   };
 
+  const translateSpeech = async (blob: Blob, language = 'en-US') => {
+    setIsLoading(true);
+    setError(null);
+    try {
+      const formData = new FormData();
+      formData.append('file', blob, 'speech.webm');
+      formData.append('language', language);
+      const response = await axios.post(`${API_URL}/translateSpeech`, formData);
+      return response.data;
+    } catch (err) {
+      setError('Speech translation failed');
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
   const clearResult = () => {
     setResult(null);
     setError(null);
   };
 
   return (
-    <TranslationContext.Provider value={{ result, isLoading, error, translateGesture, translateText, clearResult }}>
+    <TranslationContext.Provider value={{ result, isLoading, error, translateGesture, translateText, translateSpeech, clearResult }}>
       {children}
     </TranslationContext.Provider>
   );
