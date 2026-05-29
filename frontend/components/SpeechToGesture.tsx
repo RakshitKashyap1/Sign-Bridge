@@ -2,12 +2,14 @@ import { FC, useState, useRef } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Mic, Square, Loader2 } from 'lucide-react';
 import { useTranslationContext } from '../hooks/useTranslation';
+import { useHistory } from '../hooks/useHistory';
 import { Button } from './ui/Button';
 import { Card } from './ui/Card';
 
 export const SpeechToGesture: FC = () => {
   const { t, i18n } = useTranslation();
   const { translateSpeech, isLoading, error } = useTranslationContext();
+  const { addEntry } = useHistory();
   const [result, setResult] = useState<any>(null);
   const [recording, setRecording] = useState(false);
   const mediaRecorderRef = useRef<MediaRecorder | null>(null);
@@ -29,7 +31,16 @@ export const SpeechToGesture: FC = () => {
         const blob = new Blob(chunksRef.current, { type: 'audio/webm' });
         const lang = i18n.language === 'hi' ? 'hi-IN' : 'en-US';
         const data = await translateSpeech(blob, lang);
-        setResult(data);
+        if (data) {
+          setResult(data);
+          const anims = data.avatar_animations?.join(', ') || '';
+          addEntry({
+            type: 'speech_to_gesture',
+            input: data.transcribed_text || '',
+            output: `${data.sign_sequence?.length || 0} signs mapped`,
+            details: anims || undefined,
+          });
+        }
       };
 
       mediaRecorder.start();

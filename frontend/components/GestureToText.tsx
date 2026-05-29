@@ -1,8 +1,9 @@
-import { FC, useRef, useState, useCallback } from 'react';
+import { FC, useRef, useState, useCallback, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Camera, CameraOff, RefreshCw } from 'lucide-react';
 import { useCameraContext } from '../hooks/useCamera';
 import { useTranslationContext } from '../hooks/useTranslation';
+import { useHistory } from '../hooks/useHistory';
 import { Button } from './ui/Button';
 import { Card } from './ui/Card';
 
@@ -10,9 +11,25 @@ export const GestureToText: FC = () => {
   const { t } = useTranslation();
   const { stream, isActive, error: cameraError, startCamera, stopCamera } = useCameraContext();
   const { result, isLoading, error, translateGesture } = useTranslationContext();
+  const { addEntry } = useHistory();
   const videoRef = useRef<HTMLVideoElement>(null);
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const [demoMode, setDemoMode] = useState(false);
+  const prevResultRef = useRef(result);
+
+  useEffect(() => {
+    if (result && result !== prevResultRef.current) {
+      prevResultRef.current = result;
+      if (result.text) {
+        addEntry({
+          type: 'gesture_to_text',
+          input: result.gesture || 'unknown',
+          output: result.text,
+          confidence: result.confidence,
+        });
+      }
+    }
+  }, [result, addEntry]);
 
   const captureFrame = useCallback(() => {
     if (videoRef.current && canvasRef.current) {

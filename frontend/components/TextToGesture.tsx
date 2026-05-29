@@ -2,12 +2,14 @@ import { FC, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Send, Loader2 } from 'lucide-react';
 import { useTranslationContext } from '../hooks/useTranslation';
+import { useHistory } from '../hooks/useHistory';
 import { Button } from './ui/Button';
 import { Card } from './ui/Card';
 
 export const TextToGesture: FC = () => {
   const { t, i18n } = useTranslation();
   const { translateText, isLoading, error } = useTranslationContext();
+  const { addEntry } = useHistory();
   const [text, setText] = useState('');
   const [result, setResult] = useState<any>(null);
 
@@ -17,7 +19,16 @@ export const TextToGesture: FC = () => {
     
     const lang = i18n.language === 'hi' ? 'hi' : 'en';
     const data = await translateText(text, lang);
-    setResult(data);
+    if (data) {
+      setResult(data);
+      const anims = data.avatar_animations?.join(', ') || '';
+      addEntry({
+        type: 'text_to_gesture',
+        input: text,
+        output: `${data.sign_sequence?.length || 0} signs mapped`,
+        details: anims || undefined,
+      });
+    }
   };
 
   return (

@@ -1,15 +1,18 @@
 import { useTranslation } from 'react-i18next';
 import { CameraProvider } from '../hooks/useCamera';
 import { TranslationProvider } from '../hooks/useTranslation';
+import { useHistory } from '../hooks/useHistory';
 import { Navigation } from '../components/Navigation';
 import { GestureToText } from '../components/GestureToText';
 import { TextToGesture } from '../components/TextToGesture';
 import { SpeechToGesture } from '../components/SpeechToGesture';
 import { VocabularyBuilder } from '../components/VocabularyBuilder';
+import { HistoryPanel } from '../components/HistoryPanel';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '../components/ui/Tabs';
 
 export default function Home() {
   const { t } = useTranslation();
+  const { history, toggleFavorite, removeEntry, clearHistory } = useHistory();
 
   return (
     <TranslationProvider>
@@ -54,6 +57,15 @@ export default function Home() {
                 <VocabularyBuilder />
               </TabsContent>
             </Tabs>
+
+            <div className="mt-8">
+              <HistoryPanel
+                entries={history}
+                onToggleFavorite={toggleFavorite}
+                onRemove={removeEntry}
+                onClear={clearHistory}
+              />
+            </div>
           </main>
         </div>
       </CameraProvider>
