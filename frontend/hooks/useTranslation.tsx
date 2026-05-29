@@ -33,7 +33,7 @@ export function TranslationProvider({ children }: { children: ReactNode }) {
       const formData = new FormData();
       formData.append('file', file);
       
-      const response = await axios.post<TranslationResult>(`${API_URL}/gesture/translate`, formData, {
+      const response = await axios.post<TranslationResult>(`${API_URL}/translateGesture`, formData, {
         headers: { 'Content-Type': 'multipart/form-data' },
       });
       setResult(response.data);
@@ -48,7 +48,7 @@ export function TranslationProvider({ children }: { children: ReactNode }) {
     setIsLoading(true);
     setError(null);
     try {
-      const response = await axios.post(`${API_URL}/text/translate`, { text, language });
+      const response = await axios.post(`${API_URL}/translateText`, { text, language });
       return response.data;
     } catch (err) {
       setError('Translation failed');

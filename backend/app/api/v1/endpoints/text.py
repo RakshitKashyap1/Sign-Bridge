@@ -31,8 +31,3 @@ async def translate_text(request: TextTranslateRequest):
 @router.get("/gestures", summary="Get available gestures")
 async def list_gestures():
     return {"gestures": list(text_translator.sign_mapping.keys())}
-
-
-@router.get("/gestures", summary="Get available gestures")
-async def list_gestures():
-    return {"gestures": list(text_translator.sign_mapping.keys())}

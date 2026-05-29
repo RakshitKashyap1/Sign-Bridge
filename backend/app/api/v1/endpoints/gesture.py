@@ -1,12 +1,11 @@
-from fastapi import APIRouter, UploadFile, File, HTTPException, BackgroundTasks
+from fastapi import APIRouter, UploadFile, File, HTTPException
 from fastapi.responses import JSONResponse
 import numpy as np
 import cv2
 from ml.translation import GestureTranslator
 from ml.audio import text_to_speech_base64
 from ml.hand_detection import HandDetector
-import io
-from typing import List, Optional
+
 
 router = APIRouter()
 
@@ -17,7 +16,6 @@ gesture_translator = GestureTranslator(model_path="./ml/models", offline_mode=Tr
 @router.post("", summary="Translate sign gesture to text and speech")
 async def translate_gesture(
     file: UploadFile = File(...),
-    demo_mode: bool = False
 ):
     try:
         contents = await file.read()
