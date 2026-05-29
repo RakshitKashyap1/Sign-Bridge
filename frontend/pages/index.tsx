@@ -5,6 +5,7 @@ import { Navigation } from '../components/Navigation';
 import { GestureToText } from '../components/GestureToText';
 import { TextToGesture } from '../components/TextToGesture';
 import { SpeechToGesture } from '../components/SpeechToGesture';
+import { VocabularyBuilder } from '../components/VocabularyBuilder';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '../components/ui/Tabs';
 
 export default function Home() {
@@ -22,15 +23,18 @@ export default function Home() {
             <p className="text-center text-gray-600 mb-8">{t('subtitle')}</p>
             
             <Tabs defaultValue="gesture" className="w-full">
-              <TabsList className="grid w-full grid-cols-3 mb-8">
-                <TabsTrigger value="gesture" className="text-lg py-3">
+              <TabsList className="grid w-full grid-cols-4 mb-8">
+                <TabsTrigger value="gesture" className="text-sm md:text-lg py-3">
                   {t('gestureToText')}
                 </TabsTrigger>
-                <TabsTrigger value="text" className="text-lg py-3">
+                <TabsTrigger value="text" className="text-sm md:text-lg py-3">
                   {t('textToGesture')}
                 </TabsTrigger>
-                <TabsTrigger value="speech" className="text-lg py-3">
+                <TabsTrigger value="speech" className="text-sm md:text-lg py-3">
                   {t('speechToGesture')}
+                </TabsTrigger>
+                <TabsTrigger value="vocabulary" className="text-sm md:text-lg py-3">
+                  {t('vocabulary')}
                 </TabsTrigger>
               </TabsList>
               
@@ -44,6 +48,10 @@ export default function Home() {
 
               <TabsContent value="speech">
                 <SpeechToGesture />
+              </TabsContent>
+
+              <TabsContent value="vocabulary">
+                <VocabularyBuilder />
               </TabsContent>
             </Tabs>
           </main>
