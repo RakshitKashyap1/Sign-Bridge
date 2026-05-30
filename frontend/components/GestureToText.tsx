@@ -1,6 +1,6 @@
 import { FC, useRef, useState, useCallback, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
-import { Camera, CameraOff, RefreshCw } from 'lucide-react';
+import { Camera, CameraOff, RefreshCw, RotateCw } from 'lucide-react';
 import { useCameraContext } from '../hooks/useCamera';
 import { useTranslationContext } from '../hooks/useTranslation';
 import { useHistory } from '../hooks/useHistory';
@@ -9,7 +9,7 @@ import { Card } from './ui/Card';
 
 export const GestureToText: FC = () => {
   const { t } = useTranslation();
-  const { stream, isActive, error: cameraError, startCamera, stopCamera } = useCameraContext();
+  const { stream, isActive, error: cameraError, startCamera, stopCamera, toggleCamera, facingMode } = useCameraContext();
   const { result, isLoading, error, translateGesture } = useTranslationContext();
   const { addEntry } = useHistory();
   const videoRef = useRef<HTMLVideoElement>(null);
@@ -88,6 +88,10 @@ export const GestureToText: FC = () => {
                 <Button onClick={stopCamera} variant="outline" size="lg">
                   <CameraOff className="w-5 h-5 mr-2" />
                   {t('stopCamera')}
+                </Button>
+                <Button onClick={toggleCamera} variant="outline" size="lg" title={t('switchCamera')}>
+                  <RotateCw className="w-5 h-5 mr-2" />
+                  {facingMode === 'user' ? t('front') : t('back')}
                 </Button>
                 <Button onClick={captureFrame} size="lg" disabled={isLoading}>
                   {isLoading ? (

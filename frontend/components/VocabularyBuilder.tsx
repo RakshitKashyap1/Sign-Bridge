@@ -1,6 +1,6 @@
 import { FC, useState, useRef, useCallback, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
-import { Camera, CameraOff, Circle, Square, Trash2, RefreshCw } from 'lucide-react';
+import { Camera, CameraOff, Circle, Square, Trash2, RefreshCw, RotateCw } from 'lucide-react';
 import { useCameraContext } from '../hooks/useCamera';
 import { Button } from './ui/Button';
 import { Card } from './ui/Card';
@@ -10,7 +10,7 @@ const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000/api/v1
 
 export const VocabularyBuilder: FC = () => {
   const { t } = useTranslation();
-  const { stream, isActive, startCamera, stopCamera } = useCameraContext();
+  const { stream, isActive, startCamera, stopCamera, toggleCamera, facingMode } = useCameraContext();
   const videoRef = useRef<HTMLVideoElement>(null);
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const [label, setLabel] = useState('');
@@ -128,6 +128,10 @@ export const VocabularyBuilder: FC = () => {
                 <Button onClick={stopCamera} variant="outline" size="lg">
                   <CameraOff className="w-5 h-5 mr-2" />
                   {t('stopCamera')}
+                </Button>
+                <Button onClick={toggleCamera} variant="outline" size="lg" title={t('switchCamera')}>
+                  <RotateCw className="w-5 h-5 mr-2" />
+                  {facingMode === 'user' ? t('front') : t('back')}
                 </Button>
                 {!recording ? (
                   <Button onClick={startRecording} size="lg">
