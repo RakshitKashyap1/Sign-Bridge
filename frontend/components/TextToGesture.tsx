@@ -5,6 +5,7 @@ import { useTranslationContext } from '../hooks/useTranslation';
 import { useHistory } from '../hooks/useHistory';
 import { Button } from './ui/Button';
 import { Card } from './ui/Card';
+import { Avatar3D } from './Avatar3D';
 
 export const TextToGesture: FC = () => {
   const { t, i18n } = useTranslation();
@@ -88,7 +89,7 @@ export const TextToGesture: FC = () => {
               </ul>
             </div>
             {result.avatar_animations.length > 0 && (
-              <div className="space-y-2">
+              <div className="space-y-4">
                 <p className="font-medium">{t('avatarAnimations')}:</p>
                 <div className="flex flex-wrap gap-2">
                   {result.avatar_animations.map((anim: string, idx: number) => (
@@ -97,6 +98,7 @@ export const TextToGesture: FC = () => {
                     </span>
                   ))}
                 </div>
+                <Avatar3D animationNames={result.avatar_animations} />
               </div>
             )}
           </div>
