@@ -6,13 +6,14 @@ import { useHistory } from '../hooks/useHistory';
 import { Button } from './ui/Button';
 import { Card } from './ui/Card';
 import { Avatar3D } from './Avatar3D';
+import type { TextTranslationResult } from '../lib/types';
 
 export const TextToGesture: FC = () => {
   const { t, i18n } = useTranslation();
   const { translateText, isLoading, error } = useTranslationContext();
   const { addEntry } = useHistory();
   const [text, setText] = useState('');
-  const [result, setResult] = useState<any>(null);
+  const [result, setResult] = useState<TextTranslationResult | null>(null);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -76,7 +77,7 @@ export const TextToGesture: FC = () => {
             <div className="space-y-2">
               <p className="font-medium">{t('signSequence')}:</p>
               <ul className="list-disc list-inside pl-4">
-                {result.sign_sequence.map((item: any, idx: number) => (
+                {result.sign_sequence.map((item, idx) => (
                   <li key={idx} className="py-1">
                     {item.word}
                     {item.sign_data ? (
@@ -92,7 +93,7 @@ export const TextToGesture: FC = () => {
               <div className="space-y-4">
                 <p className="font-medium">{t('avatarAnimations')}:</p>
                 <div className="flex flex-wrap gap-2">
-                  {result.avatar_animations.map((anim: string, idx: number) => (
+                  {result.avatar_animations.map((anim, idx) => (
                     <span key={idx} className="px-3 py-1 bg-primary-100 text-primary-700 rounded-full text-sm">
                       {anim}
                     </span>

@@ -31,7 +31,7 @@ export function CameraProvider({ children }: { children: ReactNode }) {
       });
       setStream(mediaStream);
       setIsActive(true);
-    } catch (err) {
+    } catch {
       setError('Camera access denied or not available');
       setIsActive(false);
     }
@@ -62,7 +62,7 @@ export function CameraProvider({ children }: { children: ReactNode }) {
       setFacingMode(nextMode);
       setStream(mediaStream);
       setIsActive(true);
-    } catch (err) {
+    } catch {
       setError('Camera access denied or not available');
     }
   }, [stream, facingMode]);

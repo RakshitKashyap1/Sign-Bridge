@@ -38,7 +38,7 @@ export function TranslationProvider({ children }: { children: ReactNode }) {
         headers: { 'Content-Type': 'multipart/form-data' },
       });
       setResult(response.data);
-    } catch (err) {
+    } catch {
       setError('Translation failed');
     } finally {
       setIsLoading(false);
@@ -51,7 +51,7 @@ export function TranslationProvider({ children }: { children: ReactNode }) {
     try {
       const response = await axios.post(`${API_URL}/translateText`, { text, language });
       return response.data;
-    } catch (err) {
+    } catch {
       setError('Translation failed');
     } finally {
       setIsLoading(false);
@@ -67,7 +67,7 @@ export function TranslationProvider({ children }: { children: ReactNode }) {
       formData.append('language', language);
       const response = await axios.post(`${API_URL}/translateSpeech`, formData);
       return response.data;
-    } catch (err) {
+    } catch {
       setError('Speech translation failed');
     } finally {
       setIsLoading(false);

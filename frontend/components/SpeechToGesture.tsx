@@ -5,12 +5,14 @@ import { useTranslationContext } from '../hooks/useTranslation';
 import { useHistory } from '../hooks/useHistory';
 import { Button } from './ui/Button';
 import { Card } from './ui/Card';
+import { Avatar3D } from './Avatar3D';
+import type { SpeechTranslationResult } from '../lib/types';
 
 export const SpeechToGesture: FC = () => {
   const { t, i18n } = useTranslation();
   const { translateSpeech, isLoading, error } = useTranslationContext();
   const { addEntry } = useHistory();
-  const [result, setResult] = useState<any>(null);
+  const [result, setResult] = useState<SpeechTranslationResult | null>(null);
   const [recording, setRecording] = useState(false);
   const mediaRecorderRef = useRef<MediaRecorder | null>(null);
   const chunksRef = useRef<Blob[]>([]);
@@ -96,7 +98,7 @@ export const SpeechToGesture: FC = () => {
               <div className="space-y-2">
                 <p className="font-medium">{t('signSequence')}:</p>
                 <ul className="list-disc list-inside pl-4">
-                  {result.sign_sequence.map((item: any, idx: number) => (
+                  {result.sign_sequence.map((item, idx) => (
                     <li key={idx} className="py-1">
                       {item.word}
                       {item.sign_data ? (
@@ -110,15 +112,16 @@ export const SpeechToGesture: FC = () => {
               </div>
             )}
             {result.avatar_animations && result.avatar_animations.length > 0 && (
-              <div className="space-y-2">
+              <div className="space-y-4">
                 <p className="font-medium">{t('avatarAnimations')}:</p>
                 <div className="flex flex-wrap gap-2">
-                  {result.avatar_animations.map((anim: string, idx: number) => (
+                  {result.avatar_animations.map((anim, idx) => (
                     <span key={idx} className="px-3 py-1 bg-primary-100 text-primary-700 rounded-full text-sm">
                       {anim}
                     </span>
                   ))}
                 </div>
+                <Avatar3D animationNames={result.avatar_animations} />
               </div>
             )}
             {result.message && (

@@ -5,6 +5,7 @@ import { useCameraContext } from '../hooks/useCamera';
 import { Button } from './ui/Button';
 import { Card } from './ui/Card';
 import axios from 'axios';
+import type { GestureItem } from '../lib/types';
 
 const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000/api/v1';
 
@@ -18,7 +19,7 @@ export const VocabularyBuilder: FC = () => {
   const [capturedFrames, setCapturedFrames] = useState<Blob[]>([]);
   const [isSaving, setIsSaving] = useState(false);
   const [result, setResult] = useState<string | null>(null);
-  const [gestures, setGestures] = useState<any[]>([]);
+  const [gestures, setGestures] = useState<GestureItem[]>([]);
   const intervalRef = useRef<ReturnType<typeof setInterval> | null>(null);
 
   useEffect(() => {

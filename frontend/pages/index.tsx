@@ -8,6 +8,7 @@ import { TextToGesture } from '../components/TextToGesture';
 import { SpeechToGesture } from '../components/SpeechToGesture';
 import { VocabularyBuilder } from '../components/VocabularyBuilder';
 import { RealTimeGesture } from '../components/RealTimeGesture';
+import { ConversationMode } from '../components/ConversationMode';
 import { HistoryPanel } from '../components/HistoryPanel';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '../components/ui/Tabs';
 
@@ -27,12 +28,15 @@ export default function Home() {
             <p className="text-center text-gray-600 mb-8">{t('subtitle')}</p>
             
             <Tabs defaultValue="gesture" className="w-full">
-              <TabsList className="grid w-full grid-cols-5 mb-8">
+              <TabsList className="grid w-full grid-cols-6 mb-8">
                 <TabsTrigger value="gesture" className="text-sm md:text-lg py-3">
                   {t('gestureToText')}
                 </TabsTrigger>
                 <TabsTrigger value="realtime" className="text-sm md:text-lg py-3">
                   {t('realTime')}
+                </TabsTrigger>
+                <TabsTrigger value="conversation" className="text-sm md:text-lg py-3">
+                  {t('conversation')}
                 </TabsTrigger>
                 <TabsTrigger value="text" className="text-sm md:text-lg py-3">
                   {t('textToGesture')}
@@ -51,6 +55,10 @@ export default function Home() {
               
               <TabsContent value="realtime">
                 <RealTimeGesture />
+              </TabsContent>
+
+              <TabsContent value="conversation">
+                <ConversationMode />
               </TabsContent>
               
               <TabsContent value="text">

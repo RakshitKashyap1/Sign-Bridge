@@ -1,4 +1,3 @@
-import json
 import numpy as np
 import cv2
 from fastapi import WebSocket, WebSocketDisconnect

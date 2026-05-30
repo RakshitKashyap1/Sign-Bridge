@@ -1,6 +1,6 @@
 import { FC, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { Star, Trash2, Clock, Bookmark, History } from 'lucide-react';
+import { Star, Trash2, Bookmark, History } from 'lucide-react';
 import { HistoryEntry } from '../hooks/useHistory';
 import { Button } from './ui/Button';
 import { Card } from './ui/Card';

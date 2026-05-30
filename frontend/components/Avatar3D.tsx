@@ -94,11 +94,6 @@ const ANIMATIONS: Record<string, AnimationDef> = {
   },
 };
 
-function lerpRot(current: THREE.Euler, target: [number, number, number], t: number) {
-  current.x += (target[0] - current.x) * t;
-  current.y += (target[1] - current.y) * t;
-  current.z += (target[2] - current.z) * t;
-}
 
 function createLimb(parent: THREE.Group, length: number, radius: number, color: number): THREE.Group {
   const g = new THREE.Group();

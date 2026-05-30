@@ -14,7 +14,6 @@ export const GestureToText: FC = () => {
   const { addEntry } = useHistory();
   const videoRef = useRef<HTMLVideoElement>(null);
   const canvasRef = useRef<HTMLCanvasElement>(null);
-  const [demoMode, setDemoMode] = useState(false);
   const prevResultRef = useRef(result);
 
   useEffect(() => {
@@ -129,12 +128,6 @@ export const GestureToText: FC = () => {
       {error && (
         <Card className="p-4 bg-red-50">
           <p className="text-red-600">{error}</p>
-        </Card>
-      )}
-      
-      {demoMode && (
-        <Card className="p-4 bg-blue-50">
-          <p className="text-blue-600">{t('demoMode')}: Using pre-recorded assets</p>
         </Card>
       )}
     </div>
