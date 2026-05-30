@@ -5,6 +5,7 @@ from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import JSONResponse
 from app.api.v1 import api_router
 from app.core.config import settings
+from app.ws import handle_gesture_ws
 
 app = FastAPI(
     title="SignBridge API",
@@ -24,6 +25,7 @@ app.add_middleware(
 )
 
 app.include_router(api_router, prefix="/api/v1")
+app.add_websocket_route("/api/v1/ws/gesture", handle_gesture_ws)
 
 start_time = time.time()
 
