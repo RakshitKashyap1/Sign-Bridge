@@ -1,182 +1,151 @@
-# SignBridge
+# SignBridge 🫰
 
-Real-time bidirectional communication bridge between Sign Language and spoken/written language.
+> *"I don't know sign language, but my computer does."*
 
-## System Architecture
+**SignBridge** is a real-time sign language translation app that bridges the gap between signing and speaking — because your hands deserve to be heard, and your voice deserves to be seen.
 
-```
-┌─────────────────┐     ┌─────────────────┐     ┌─────────────────┐
-│    Frontend     │     │    Backend      │     │  ML Inference   │
-│   (Next.js)     │◄───►│   (FastAPI)     │◄───►│  (TensorFlow/    │
-│                 │     │                 │     │   MediaPipe)     │
-└─────────────────┘     └─────────────────┘     └─────────────────┘
-        │                        │                        │
-        ▼                        ▼                        ▼
-  WebRTC Stream         /translateGesture        Hand Landmark
-  Accessibility         /translateText           Detection &
-  Bilingual UI        Audio/Speech              Gesture Recognition
-```
+Think Google Translate, but for your fingers. And it runs in your browser. And there's a 3D avatar that dances when you type "hello". 🕺
 
-### Tech Stack
+---
 
-| Layer | Technology |
-|-------|------------|
-| Frontend | Next.js 14, React 18, TailwindCSS |
-| Backend | FastAPI, Uvicorn |
-| ML Core | TensorFlow, PyTorch, MediaPipe, OpenCV |
-| Deployment | Docker, Docker Compose |
+## What Does It Do?
 
-## Installation
+| You do this... | SignBridge does that... |
+|---|---|
+| Wave at your camera | 🤖 → "Hello!" |
+| Type "thank you" | 🤖 → Shows you the sign + 3D avatar bows |
+| Speak into your mic | 🤖 → Transcribes AND signs it back |
+| Flip your camera | 🤖 → Switches to selfie mode (the horror) |
+| Make random hand gestures | 🤖 → "No hands detected" (rude but honest) |
 
-### Prerequisites
-- Docker and Docker Compose
-- Node.js 18+ (for local development)
-- Python 3.11+ (for local development)
+### Features That Actually Work™
 
-### Quick Start (Docker)
+- ✋ **Gesture → Text/Speech**: Point your webcam at your hands, press translate, watch the magic
+- ⚡ **Real-time Mode**: WebSocket-powered 5fps continuous recognition (like FaceTime but for your hands)
+- 📝 **Text → Sign**: Type words, get sign language animations + a 3D avatar that performs them
+- 🎤 **Speech → Sign**: Talk to your computer, it talks back in sign language
+- 📚 **Vocabulary Builder**: Save your own custom gestures (finally, revenge for autocorrect)
+- 💬 **Conversation Mode**: Split-screen chat — sign on one side, type on the other
+- 📜 **History & Favorites**: Because forgetting things is the first sign of... wait, what were we talking about?
+- 🌐 **Bilingual**: English and Hindi (more languages join the party soon)
+- 📱 **PWA**: Install it like an app, use it offline (service workers: the unsung heroes)
+- 🔄 **Camera Toggle**: Front camera, back camera, existential crisis about which one you look better in
+
+---
+
+## Tech Stack (Fancy Words Edition)
+
+| Layer | What we used | Why |
+|-------|-------------|-----|
+| Frontend | Next.js 14, React 18, TailwindCSS, Three.js | Because recreating a human skeleton in JavaScript is a normal thing to do |
+| Backend | FastAPI, Uvicorn, WebSockets | Python, but make it ✨fast✨ |
+| ML Core | TensorFlow, MediaPipe, OpenCV | We taught a computer what hands look like. It was not easy. |
+| 3D Magic | Three.js | A sphere with limbs that dances when you type |
+| Deployment | Docker, GitHub Actions | Ships itself. Like Amazon, but free. |
+
+---
+
+## Quick Start (The "I want it NOW" approach)
+
+### With Docker (recommended — 1 command, infinite satisfaction)
 
 ```bash
 docker-compose up -d
 ```
 
-Access the application at `http://localhost:3000`
+Open `http://localhost:3000` and start waving. The computer is watching.
 
-### Local Development
+### Without Docker (for people who enjoy `pip install` drama)
 
 **Backend:**
 ```bash
 cd backend
-pip install -r requirements.txt
+pip install -r requirements.txt  # ☕ go make coffee, this takes a while
 uvicorn app.main:app --reload
 ```
 
 **Frontend:**
 ```bash
 cd frontend
-npm install
+npm install          # 📦 downloads the entire internet
 npm run dev
 ```
 
-## API Documentation
+**Then:**
+1. Point your browser at `http://localhost:3000`
+2. Allow camera access (yes, we promise not to judge)
+3. Make a hand gesture
+4. Receive translation
+5. Feel like you're living in the future
+6. Go back to step 3
+
+---
+
+## API Endpoints (For the Curious)
 
 ### POST `/api/v1/translateGesture`
-
-Translate sign gesture to text and speech.
-
-**Request:**
-- Content-Type: `multipart/form-data`
-- Body: `file` (image/jpeg)
-
-**Response:**
-```json
-{
-  "text": "hello",
-  "gesture": "hello",
-  "confidence": 0.92,
-  "audio_base64": "base64 encoded audio..."
-}
-```
-
-### POST `/api/v1/gesture/stream`
-
-Process video stream for real-time detection.
-
-**Response:**
-```json
-{
-  "landmarks": [{"handedness": "right", "landmarks_count": 21}],
-  "text": "hello",
-  "confidence": 0.88
-}
-```
-
-### GET `/api/v1/translateGesture/high-frequency`
-
-Get high-frequency gesture list for offline mode.
+Send a picture of your hand. Get words back. It's that simple.
 
 ### POST `/api/v1/translateText`
+Type words. Get sign animations. The 3D avatar thanks you for giving it purpose.
 
-Translate text to sign language animations.
+### WebSocket `/api/v1/ws/gesture`
+Real-time frame streaming. Like a video call, but the other person is a machine learning model that's very good at guessing.
 
-**Request:**
-```json
-{
-  "text": "hello how are you",
-  "language": "en"
-}
-```
+### POST `/api/v1/translateSpeech`
+Talk. Let the computer figure out what you meant. It's better than most humans at this.
 
-**Response:**
-```json
-{
-  "original_text": "hello how are you",
-  "language": "en",
-  "sign_sequence": [
-    {"word": "hello", "sign_data": {"animations": ["wave"], "icons": ["hand_wave"]}}
-  ],
-  "avatar_animations": ["wave"]
-}
-```
+### POST/GET/DELETE `/api/v1/vocabulary/*`
+Build your own gesture dictionary. Become the Shakespeare of sign language.
 
-## Environment Variables
+---
 
-| Variable | Default | Description |
-|----------|---------|-------------|
-| `NEXT_PUBLIC_API_URL` | `http://localhost:8000/api/v1` | Frontend API URL |
-| `MODEL_PATH` | `./ml/models` | ML model directory |
-| `ALLOWED_ORIGINS` | localhost origins | CORS allowed origins |
+## Environment Variables (Don't touch unless you know what you're doing)
 
-## Model Training Lineage
+| Variable | Default | What it does |
+|----------|---------|--------------|
+| `NEXT_PUBLIC_API_URL` | `http://localhost:8000/api/v1` | Where the frontend yells at the backend |
+| `MODEL_PATH` | `./ml/models` | Where we keep the brain |
+| `ALLOWED_ORIGINS` | localhost | Who's allowed to talk to our APIs (strangers not welcome) |
 
-The gesture recognition model was trained on a custom dataset of Indian Sign Language gestures using:
+---
 
-1. **Data Collection**: MediaPipe hand landmark extraction from video recordings
-2. **Feature Engineering**: Normalized 3D coordinates (x, y, z) for 21 landmarks per hand
-3. **Model Architecture**: LSTM with 2 layers (128 units each) + Dense classifier
-4. **Training**: 50 epochs, Adam optimizer, categorical crossentropy loss
-5. **Export**: Saved as TensorFlow SavedModel format
+## The Model Training Saga
 
-## Deployment
+Our gesture recognition model learned to see hands the hard way — through 50 epochs of TensorFlow sweat and tears:
 
-### Docker Compose
+1. **Data Collection**: MediaPipe extracted 21 hand landmarks from hours of video (the computer's eyes hurt)
+2. **Feature Engineering**: Normalized 3D coordinates — basically telling the computer where hands exist in space
+3. **Model**: LSTM with 2 layers (128 units each) — it's basically a very small, very specialized fortune teller
+4. **Training**: 50 epochs, Adam optimizer, categorical crossentropy — we fed it signs until it dreamed in sign language
+5. **Dataset**: Indian Sign Language + a dash of ASL — the multilingual, multitalented model
 
-```bash
-# Start services
-docker-compose up -d
+Want to train your own? Check out [`colab/SignBridge_Training.ipynb`](colab/SignBridge_Training.ipynb) and prepare to watch a computer learn the alphabet.
 
-# View logs
-docker-compose logs -f
+---
 
-# Stop services
-docker-compose down
-```
+## Contributing
 
-### Production Setup
+We're so glad you asked! Check out [CONTRIBUTING.md](CONTRIBUTING.md) for the full scoop. But here's the short version:
 
-1. Update `nginx.conf` with your domain
-2. Set environment variables in `.env` file
-3. Run `docker-compose -f docker-compose.yml up -d`
+1. Fork it
+2. Branch it
+3. Code it
+4. PR it
+5. We merge it
+6. Party 🎉
+
+---
 
 ## License
 
-MIT License
+MIT. Do whatever you want with it. Just don't blame us if your computer starts making shadow puppets at 3 AM.
 
-## Model Training
+---
 
-### Google Colab Notebook
+## Fun Facts
 
-A training notebook is provided at [`colab/SignBridge_Training.ipynb`](colab/SignBridge_Training.ipynb) that includes:
-
-1. Environment setup with all required libraries
-2. Dataset preparation (ASL + ISL hybrid)
-3. CNN model training with accuracy/loss visualization
-4. Model export (H5, TFLite, ONNX formats)
-5. Inference demo with `predict_gesture(frame)` function
-6. FastAPI integration snippets
-
-To train the model:
-
-1. Open the notebook in Google Colab
-2. Mount Google Drive for model storage
-3. Run all cells sequentially
-4. Download trained model files and place in `ml/models/`
+- This README is 100% more entertaining than most enterprise documentation
+- The 3D avatar has never complained about a deadline
+- We spent more time on this README than on model training, and it shows
+- If you read this far, you should probably just [contribute](CONTRIBUTING.md) already
